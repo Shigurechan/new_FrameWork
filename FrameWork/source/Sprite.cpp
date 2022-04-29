@@ -22,6 +22,13 @@ void FrameWork::RenderGraph(const glm::mat4 view,const glm::vec3 position,const 
 	FrameWork::sprite->Render(view,position,texture);
 }
 
+// ##################################### テクスチャ描画 サイズ　公開 ##################################### 
+void FrameWork::RenderGraph_Size(const glm::mat4 view,const glm::vec3 position,const FrameWork::Texture texture,glm::vec2 startSize,glm::vec2 endSize)
+{
+	FrameWork::sprite->Render_Size(view,position,texture,startSize,endSize);
+}
+
+
 // ##################################### コンストラクタ ##################################### 
 FrameWork::Sprite::Sprite() : FrameWork::Transform()
 {
@@ -36,7 +43,7 @@ FrameWork::Sprite::Sprite() : FrameWork::Transform()
 
 	
     shader = std::make_unique<Shader>();
-	shader->Load("Asset/shader/2D/BasicTexture_2D.vert","Asset/shader/2D/BasicTexture_2D.frag");
+	shader->Load("asset/shader/2D/BasicTexture_2D.vert","asset/shader/2D/BasicTexture_2D.frag");
 
 	shader->setEnable();
 
@@ -72,8 +79,8 @@ void FrameWork::Sprite::Render(const glm::mat4 view,const glm::vec3 position,con
 
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexAttribute) * vertex.size(), vertex.data());
 
-	Transform::setPosition(glm::vec3(screenSize.x * position.x,screenSize.y * position.y,0));
-	Transform::setPosition(glm::vec3(position.x,position.y,0));
+	Transform::setPosition(position);
+	//Transform::setPosition(glm::vec3(position.x,position.y,0));
 	Transform::setRotate(glm::vec3(0, 0, 1), 0);
 	Transform::setScale(glm::vec3(texture.size,1));
 
@@ -88,8 +95,46 @@ void FrameWork::Sprite::Render(const glm::mat4 view,const glm::vec3 position,con
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);	
 	shader->setDisable();
-
 }
+
+
+// ##################################### テクスチャ描画 サイズ指定 ##################################### 
+void FrameWork::Sprite::Render_Size(const glm::mat4 view,const glm::vec3 position,const FrameWork::Texture texture,glm::vec2 startSize,glm::vec2 endSize)
+{
+    shader->setEnable();
+	glm::vec2 screenSize = glm::vec2(1.0f / FrameWork::currentWindow->getSize().x,1.0f / FrameWork::currentWindow->getSize().y);
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	setSize(startSize,endSize);
+	setUV(startSize,endSize,texture.size);
+
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexAttribute) * vertex.size(), vertex.data());
+
+
+
+
+	Transform::setPosition(position);
+	//Transform::setPosition(glm::vec3(position.x,position.y,0));
+	Transform::setRotate(glm::vec3(0, 0, 1), 0);
+	Transform::setScale(glm::vec3(endSize - startSize,1));
+
+	shader->setUniformSampler2D("uImage",0,texture.ID);
+	shader->setUniformMatrix4fv("uTranslate", Transform::getMatTranslation());
+	shader->setUniformMatrix4fv("uRotate", Transform::getMatRotate());
+	shader->setUniformMatrix4fv("uScale", Transform::getMatScale());
+	shader->setUniformMatrix4fv("uViewProjection", view);
+
+	glDrawArrays(GL_TRIANGLES,0,vertex.size());
+	
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);	
+	shader->setDisable();
+}
+
+
+
+
 
 // ##################################### 頂点 #####################################
 void FrameWork::Sprite::setSize(const glm::vec2 startSize,const glm::vec2 endSize)

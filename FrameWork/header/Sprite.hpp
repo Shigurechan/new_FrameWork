@@ -39,7 +39,8 @@ namespace FrameWork
 		~Sprite();
 
         void Render(const glm::mat4 view,const glm::vec3 position,const FrameWork::Texture texture);
-        void Render_Size(const glm::mat4 view,const FrameWork::Texture texture,const glm::vec3 position,const glm::ivec2 startSize,const glm::ivec2 endSize);
+		void Render_Size(const glm::mat4 view,const glm::vec3 position,const FrameWork::Texture texture,glm::vec2 startSize,glm::vec2 endSize);
+
 
         std::unique_ptr<Shader> shader;
 	private:

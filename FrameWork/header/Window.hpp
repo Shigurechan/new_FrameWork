@@ -63,8 +63,8 @@ namespace FrameWork
     
     extern std::shared_ptr<FrameWork::Window> currentWindow;  // クライアントコンテキスト
 
-    void SetCurrentWindowContext(std::shared_ptr<FrameWork::Window> win); 	//クライアントコンテキスト　設定
-	int getKeyInput(int key);												//キー入力
+   
+	
 
 
 }

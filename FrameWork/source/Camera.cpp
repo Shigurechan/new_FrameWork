@@ -1,9 +1,29 @@
 #include "../header/Camera.hpp"
 
+
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+
 #include "../header/Window.hpp"
+#include "../header/Camera_Use.hpp"
+
+std::shared_ptr<FrameWork::Camera> FrameWork::currentCamera = nullptr;
+
+
+// #####################################  クライアントカメラ　設定　##################################### 
+void FrameWork::SetCurrentCamera(std::shared_ptr<FrameWork::Camera> c)
+{
+	FrameWork::currentCamera = c;
+}
+
+// #####################################　クライアントカメラ　取得　##################################### 
+std::shared_ptr<FrameWork::Camera> FrameWork::GetCurrentCamera()
+{
+	return currentCamera;
+}
+
+
 
 // ##################################### 初期化　##################################### 
 FrameWork::Camera::Camera()
@@ -15,7 +35,7 @@ FrameWork::Camera::Camera()
 
 	shader = std::make_shared<FrameWork::Shader>();
 
-	shader->Load("Asset/shader/FrameBuffer.vert", "Asset/shader/FrameBuffer.frag");
+	shader->Load("asset/shader/FrameBuffer.vert", "asset/shader/FrameBuffer.frag");
 
 	shader->setEnable();
 	glBindVertexArray(quadVAO);
@@ -111,7 +131,6 @@ void FrameWork::Camera::ClearBuffer()
 
 
 
-
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferFBO);
 	//glViewport(0, 0, currentWindow->getSize().x, currentWindow->getSize().y);
@@ -154,7 +173,7 @@ void FrameWork::Camera::RendererBuffer()
 	
 }
 
-// ##################################### 座標を設定　##################################### 
+// ##################################### 座標を設定 ##################################### 
 void FrameWork::Camera::setPosition(glm::vec3 p)
 {
 	position = p;	//座標
@@ -201,7 +220,6 @@ glm::mat4 FrameWork::Camera::getViewPerspective()
 // ##################################### 正射投影行列　##################################### 
 glm::mat4 FrameWork::Camera::getViewOrthographic()
 {
-	//return glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, 0.1f, 100.0f) * view;
 	return glm::ortho(-(float)currentWindow->getSize().x / 2.0f, (float)currentWindow->getSize().x / 2.0f, 
 	-(float)currentWindow->getSize().y /2.0f , (float)currentWindow->getSize().y / 2.0f,0.1f, 100.0f) * view;
 }
@@ -223,7 +241,6 @@ void FrameWork::Camera::setColorBuffer(GLuint frame)
 {
 	glDeleteTextures(1,&frameBuffer);
 	frameBuffer = frame;
-
 }
 
 // ##################################### 深度バッファ　設定　##################################### 

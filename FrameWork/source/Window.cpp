@@ -12,9 +12,24 @@
 
 #include <string>
 #include "../header/Window.hpp"
+#include "../header/Window_Use.hpp"
 #include "../header/Camera.hpp"
 
 std::shared_ptr<FrameWork::Window> FrameWork::currentWindow = nullptr;
+
+// ##################################### クライアントコンテキスト　設定 ##################################### 
+void FrameWork::SetCurrentWindow(std::shared_ptr<FrameWork::Window> w)
+{
+	FrameWork::currentWindow = w;
+}
+
+// ##################################### クライアントコンテキスト　取得 ##################################### 
+std::shared_ptr<FrameWork::Window> FrameWork::GetCurrentWindow()
+{
+	return FrameWork::currentWindow;
+}
+
+
 
 // ##################################### クライアントコンテキスト　設定 ##################################### 
 void FrameWork::SetCurrentWindowContext(std::shared_ptr<FrameWork::Window> win)
@@ -24,7 +39,7 @@ void FrameWork::SetCurrentWindowContext(std::shared_ptr<FrameWork::Window> win)
 }
 
 // #####################################　キー入力 ##################################### 
-int FrameWork::getKeyInput(int key)
+int FrameWork::GetKeyInput(int key)
 {
 	return FrameWork::currentWindow->getKeyInput(key);	
 }

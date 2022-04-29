@@ -21,7 +21,8 @@ namespace FrameWork
         GameObject();
         ~GameObject();
 
-        virtual void Update() = 0;  //アップデート
+        virtual void Update() = 0;  //更新
+        virtual void Render() = 0;  //描画
         
 
         void setTag(std::string str);

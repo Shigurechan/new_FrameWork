@@ -96,3 +96,13 @@ FrameWork::Texture FrameWork::LoadTexture(const char* fileName)
     return texture;
 
 }
+
+
+// ##################################### テクスチャを削除 ##################################### 
+void FrameWork::DeleteTexture(FrameWork::Texture texture)
+{
+    glDeleteTextures(1,&texture.ID);
+    stbi_image_free(texture.data);
+    texture.data = NULL;
+
+}

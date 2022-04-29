@@ -4,6 +4,8 @@
 
 #include "../FrameWork/header/FrameWork.hpp"
 
+#include "../header/Entry.hpp"
+
 int main()
 {
     
@@ -12,33 +14,33 @@ int main()
 		std::cerr << "glfw を初期化出来ません。" << std::endl;
 	}
 
-
     std::shared_ptr<FrameWork::Window> window = std::make_shared<FrameWork::Window>(glm::ivec2(840,680),"sample");
+                            
     FrameWork::SetCurrentWindowContext(window);
- 
+    
     if (glewInit() != GLEW_OK)
 	{
 		std::cerr << "glew を初期化出来ません。" << std::endl;
 	}
 
+    FrameWork::Init();  //フレームワークを初期化
 
+    FrameWork::SetCurrentCamera(std::make_shared<FrameWork::Camera>());   //カメラ初期化
 
-    FrameWork::Init();
-    std::shared_ptr<FrameWork::Camera> camera = std::make_shared<FrameWork::Camera>();
-    FrameWork::Texture texture = FrameWork::LoadTexture("Asset/texture/debug_A1.png");
+    std::shared_ptr<Entry> entry = std::make_shared<Entry>();
 
-
-
-    while(*window)
+    while(*FrameWork::GetCurrentWindow())
     {
-        camera->ClearBuffer();
-
-        FrameWork::RenderGraph(camera->getViewOrthographic(),glm::vec3(0,0,0),texture);
+        FrameWork::GetCurrentCamera()->ClearBuffer();
 
 
+        entry->Update();
+        entry->Renderer();
 
-        camera->RendererBuffer();
-        window->SwapBuffer();
+
+
+        FrameWork::GetCurrentCamera()->RendererBuffer();
+        FrameWork::GetCurrentWindow()->SwapBuffer();
     }
 
 

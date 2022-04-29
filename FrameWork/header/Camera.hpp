@@ -17,6 +17,8 @@
 
 namespace FrameWork
 {
+
+
 	class Camera
 	{
 
@@ -89,5 +91,11 @@ namespace FrameWork
 		};
 
 	};
+
+
+
+
+	extern std::shared_ptr<Camera> currentCamera;
+
 }
 #endif
