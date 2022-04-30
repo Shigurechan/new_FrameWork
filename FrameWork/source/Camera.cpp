@@ -23,8 +23,6 @@ std::shared_ptr<FrameWork::Camera> FrameWork::GetCurrentCamera()
 	return currentCamera;
 }
 
-
-
 // ##################################### 初期化　##################################### 
 FrameWork::Camera::Camera()
 {	

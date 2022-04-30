@@ -1,6 +1,7 @@
 #ifndef ___FRAMEWORK_HPP_
 #define ___FRAMEWORK_HPP_
 
+typedef char byte;
 
 #include <glm/glm.hpp>
 
