@@ -1,4 +1,5 @@
-object/Stage.o: source/Stage.cpp source/../header/Stage.hpp \
+object/Generate_Dungeon.o: source/Generate_Dungeon.cpp \
+ source/../header/Generate_Dungeon.hpp \
  source/../header/../../FrameWork/header/FrameWork.hpp \
  source/../header/../../FrameWork/header/../header/Init_Use.hpp \
  source/../header/../../FrameWork/header/../header/Sprite_Use.hpp \
@@ -12,11 +13,9 @@ object/Stage.o: source/Stage.cpp source/../header/Stage.hpp \
  source/../header/../../FrameWork/header/../header/GameObject.hpp \
  source/../header/../../FrameWork/header/../header/Transform.hpp \
  source/../header/../../FrameWork/header/../header/Scene.hpp \
- source/../header/Brick.hpp source/../header/Brick.hpp \
- source/../header/Generate_Dungeon.hpp \
  source/../../FrameWork/header/FrameWork.hpp
 
-source/../header/Stage.hpp:
+source/../header/Generate_Dungeon.hpp:
 
 source/../header/../../FrameWork/header/FrameWork.hpp:
 
@@ -43,11 +42,5 @@ source/../header/../../FrameWork/header/../header/GameObject.hpp:
 source/../header/../../FrameWork/header/../header/Transform.hpp:
 
 source/../header/../../FrameWork/header/../header/Scene.hpp:
-
-source/../header/Brick.hpp:
-
-source/../header/Brick.hpp:
-
-source/../header/Generate_Dungeon.hpp:
 
 source/../../FrameWork/header/FrameWork.hpp:

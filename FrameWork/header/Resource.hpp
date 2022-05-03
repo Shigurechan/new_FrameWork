@@ -36,6 +36,7 @@ namespace FrameWork
     std::shared_ptr<std::vector<GLchar>> LoadShader(const char* fileName);                                       //シェーダー読み込み
     Texture LoadTexture(const char* fileName);                //テクスチャ読み込み
     void DeleteTexture(FrameWork::Texture texture);
+    int GetRandom(int start, int end);
 
 }
 

@@ -18,7 +18,7 @@ void Brick::Update()
 // ##################################### 描画 ##################################### 
 void Brick::Render()
 {
-    FrameWork::RenderGraph(FrameWork::GetCurrentCamera()->getViewOrthographic(),glm::vec3(position,0),texture); 
+    //FrameWork::RenderGraph(FrameWork::GetCurrentCamera()->getViewOrthographic(),glm::vec3(position,0),texture); 
 }
 
 // ##################################### デストラクタ ##################################### 

@@ -15,14 +15,14 @@ OBJ         	:=$(addprefix $(OBJ_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SRC))))
 OBJ_USE     	:=$(addprefix $(OBJ_USE_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SRC_USE))))
 
 $(PRG): $(OBJ) $(OBJ_USE)
-	$(CXX) -O2 $^ -o $@ -ldl -lGLESv2 -lGLU -lGL -lglfw3 -pthread -lGL -lGLEW  -lfreetype -ldl -lX11
+	$(CXX) $^ -o $@ -ldl -lGLESv2 -lGLU -lGL -lglfw3 -pthread -lGL -lGLEW  -lfreetype -ldl -lX11
 
 $(OBJ_DIR)/%.o: ../FrameWork/source/%.cpp
-	$(CXX) -O2 -g -c -MMD -MP $< -o $@
+	$(CXX) -g -c -MMD -MP $< -o $@
 -include $(DEP)
 
 $(OBJ_USE_DIR)/%.o: source/%.cpp
-	$(CXX) -O2 -g -c -MMD -MP $< -o $@
+	$(CXX) -g -c -MMD -MP $< -o $@
 -include $(DEP)
 	
 clean:

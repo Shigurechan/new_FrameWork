@@ -13,6 +13,7 @@
 #include "Brick.hpp"
 
 class Game;
+class Generate_Dungeon;
 class Stage
 {
 public:
@@ -26,8 +27,11 @@ public:
     
 private:
 
-    byte grid[10][10];
-    std::vector<std::shared_ptr<FrameWork::GameObject>> object;
+    std::vector<byte> stage;
+
+    std::shared_ptr<Generate_Dungeon> dungeon;
+
+    FrameWork::Texture sprite;
 
 
 };

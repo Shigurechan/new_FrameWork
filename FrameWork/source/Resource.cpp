@@ -1,9 +1,10 @@
 #include "../header/Resource.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 
-#include <iostream>
-#include <memory>
-#include <vector>
+#include <sys/timeb.h> 
+#include <stdio.h>
+#include <random>
+
 #include <stb/stb_image.h>
 //#include <sys/timeb.h> 
 
@@ -36,8 +37,6 @@ std::shared_ptr<std::vector<GLchar>> FrameWork::LoadShader(const char* fileName)
     return nullptr;
 }
 
-
-
 // ##################################### テクスチャをロード ##################################### 
 FrameWork::Texture FrameWork::LoadTexture(const char* fileName)
 {
@@ -48,7 +47,6 @@ FrameWork::Texture FrameWork::LoadTexture(const char* fileName)
 
     unsigned char* data = NULL;
     data = stbi_load(fileName, &size.x, &size.y, &channel, 0);
-
     texture.size = size;
 
     if (data == NULL)
@@ -93,16 +91,27 @@ FrameWork::Texture FrameWork::LoadTexture(const char* fileName)
 
     texture.data = data;
 
+
+
+    stbi_image_free(texture.data);
     return texture;
 
 }
-
 
 // ##################################### テクスチャを削除 ##################################### 
 void FrameWork::DeleteTexture(FrameWork::Texture texture)
 {
     glDeleteTextures(1,&texture.ID);
-    stbi_image_free(texture.data);
+    //stbi_image_free(texture.data);
     texture.data = NULL;
+}
 
+// ##################################### 乱数　取得 ##################################### 
+int FrameWork::GetRandom(int start, int end)
+{
+	std::random_device rnd;                             // 非決定的な乱数生成器を生成
+	std::mt19937 mt(rnd());                             //  メルセンヌ・ツイスタの32ビット版、引数は初期シード値
+	std::uniform_int_distribution<> Rand(start, end);   // [start, end] 範囲の一様乱数	
+
+	return Rand(mt);
 }

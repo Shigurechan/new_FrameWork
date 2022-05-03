@@ -1,34 +1,101 @@
 #include "../header/Stage.hpp"
 #include "../header/Brick.hpp"
+#include "../header/Generate_Dungeon.hpp"
+
+#include "../../FrameWork/header/FrameWork.hpp"
+#include <memory>
 
 // ##################################### コンストラクタ ##################################### 
 Stage::Stage()
 {
-    for(int i = 0; i < 10; i++)
-    {
-        for(int j = 0; j < 00; j++)
-        {
-            grid[i][j] = 0x01;
-        }    
-    }
+    stage.resize( (int)(FrameWork::GetCurrentWindow()->getSize().x / 24) * (int)(FrameWork::GetCurrentWindow()->getSize().y / 24) );
+    std::fill(stage.begin(),stage.end(),(byte)0x00);
 
-    for(int i = 0; i < 10; i++)
+    sprite = FrameWork::LoadTexture("asset/texture/brickChip.png");
+
+
+    dungeon = std::make_shared<Generate_Dungeon>(glm::ivec2((FrameWork::GetCurrentWindow()->getSize().x / 24),(FrameWork::GetCurrentWindow()->getSize().y / 24)),glm::ivec2(3,3));
+    dungeon->setGenerate();
+    //printf("aaaa\n");
+    stage = dungeon->getStage();
+
+    int xNum = (int)(FrameWork::GetCurrentWindow()->getSize().x / 24);
+    int yNum = (int)(FrameWork::GetCurrentWindow()->getSize().y / 24);
+
+    std::cout<<"X: " << xNum<<std::endl;
+    std::cout<<"Y: " << yNum<<std::endl;
+    //std::cout<<"Y * X: " << yNum * xNum<<std::endl;
+
+
+    for(int i = 0; i< yNum; i++)
     {
-        for(int j = 0; j < 10; j++)
+        for(int j = 0; j < xNum; j++)
         {
-            if(grid[i][j] = 0x01)
+            switch(stage.at(xNum * i + j))
             {
-                object.push_back(std::make_shared<Brick>(glm::ivec2(i * 24,j * 24)));
+                case 0x00:
+                {
+                    printf("*");
+                }
+                break;
+
+                case 0x01:
+                {
+                    printf("A");
+                }
+                break;
+
+                case 0x02:
+                {
+                    printf("B");
+                }
+                break;
+
+                case 0x03:
+                {
+                    printf("C");
+                }
+                break;
+
+                case 0x04:
+                {
+                    printf("D");
+                }
+                break;
+
+                case 0x05:
+                {
+                    printf("E");
+                }
+                break;
+                
+                case 0x06:
+                {
+                    printf("F");
+                }
+                break;
+                
+                case 0x07:
+                {
+                    printf("G");
+                }
+                break;
+                
+                case 0x08:
+                {
+                    printf("H");
+                }
+                break;
+                
             }
-            else
-            {
-                object.push_back(nullptr);
-            }
+            
+        }
         
-        }    
+        printf("\n");
     }
-}
 
+
+}
 // ##################################### 更新 ##################################### 
 void Stage::Update()
 {
@@ -38,16 +105,27 @@ void Stage::Update()
 // ##################################### 描画 ##################################### 
 void Stage::Renderer()
 {    
-    for(std::vector<std::shared_ptr<FrameWork::GameObject>>::iterator itr = object.begin(); itr != object.end(); itr++)
+    //FrameWork::RenderGraph(FrameWork::currentCamera->getViewOrthographic(),glm::vec3(24,24,-2),sprite);
+
+    for(int i = 0; i < (FrameWork::GetCurrentWindow()->getSize().y / 24); i++)
     {
-        (*itr)->Render();
-    }
-
-
+        for(int j = 0; j < (FrameWork::GetCurrentWindow()->getSize().x / 24); j++)
+        {
+            switch(stage.at(i * (FrameWork::GetCurrentWindow()->getSize().x / 24) + j ))
+            {
+                case (byte)0xFF:
+                {
+                    //printf("っっｆ\n");
+                    FrameWork::RenderGraph(FrameWork::currentCamera->getViewOrthographic(),glm::vec3(24 * j,24 * i,-3),sprite);
+                }
+                break;
+            }
+        }
 }
+    }
 
 // ##################################### デストラクタ ##################################### 
 Stage::~Stage()
 {
-
+    FrameWork::DeleteTexture(sprite);
 }

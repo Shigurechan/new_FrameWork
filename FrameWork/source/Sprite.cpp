@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/transform.hpp>
+
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "../header/Resource.hpp"
@@ -79,8 +79,9 @@ void FrameWork::Sprite::Render(const glm::mat4 view,const glm::vec3 position,con
 
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexAttribute) * vertex.size(), vertex.data());
 
-	Transform::setPosition(position);
-	//Transform::setPosition(glm::vec3(position.x,position.y,0));
+	
+	Transform::setPosition(glm::vec3(position.x,-position.y,position.z) - glm::vec3(FrameWork::currentWindow->getSize().x / 2.0f,-FrameWork::currentWindow->getSize().y / 2.0f,0.0f) + glm::vec3((texture.size.x) / 2.0f,-(texture.size.y) / 2.0f,0.0f) );
+	//Transform::setPosition(position);
 	Transform::setRotate(glm::vec3(0, 0, 1), 0);
 	Transform::setScale(glm::vec3(texture.size,1));
 
@@ -114,7 +115,9 @@ void FrameWork::Sprite::Render_Size(const glm::mat4 view,const glm::vec3 positio
 
 
 
-	Transform::setPosition(position);
+//	Transform::setPosition(position);
+	Transform::setPosition(position - glm::vec3(FrameWork::currentWindow->getSize().x / 2.0f,-FrameWork::currentWindow->getSize().y / 2.0f,0.0f) + glm::vec3((endSize.x  - startSize.x) / 2.0f,-(endSize.y - startSize.y) / 2.0f,0.0f) );
+
 	//Transform::setPosition(glm::vec3(position.x,position.y,0));
 	Transform::setRotate(glm::vec3(0, 0, 1), 0);
 	Transform::setScale(glm::vec3(endSize - startSize,1));

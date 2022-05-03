@@ -34,11 +34,11 @@ void Player::Update()
 // #####################################  描画　##################################### 
 void Player::Render()
 {
-    FrameWork::RenderGraph_Size(FrameWork::GetCurrentCamera()->getViewOrthographic(),position,texture,glm::vec2(0,0),glm::vec2(39,39));
+    //FrameWork::RenderGraph_Size(FrameWork::GetCurrentCamera()->getViewOrthographic(),position,texture,glm::vec2(0,0),glm::vec2(39,39));
 }
 
 // #####################################  デストラクタ　##################################### 
 Player::~Player()
 {
-    FrameWork::DeleteTexture(texture);
+    //FrameWork::DeleteTexture(texture);
 }
