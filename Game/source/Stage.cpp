@@ -22,8 +22,8 @@ Stage::Stage()
     int xNum = (int)(FrameWork::GetCurrentWindow()->getSize().x / 24);
     int yNum = (int)(FrameWork::GetCurrentWindow()->getSize().y / 24);
 
-    std::cout<<"X: " << xNum<<std::endl;
-    std::cout<<"Y: " << yNum<<std::endl;
+    //std::cout<<"X: " << xNum<<std::endl;
+    //std::cout<<"Y: " << yNum<<std::endl;
     //std::cout<<"Y * X: " << yNum * xNum<<std::endl;
 
 
@@ -31,6 +31,7 @@ Stage::Stage()
     {
         for(int j = 0; j < xNum; j++)
         {
+            //std::cout<<(xNum * i + j)<<std::endl;
             switch(stage.at(xNum * i + j))
             {
                 case 0x00:
@@ -87,6 +88,62 @@ Stage::Stage()
                 }
                 break;
                 
+                case 0x09:
+                {
+                    printf("I");
+                }
+                break;  
+
+
+                case 0x0A:
+                {
+                    printf("J");
+                }
+                break;
+
+
+                case 0x0B:
+                {
+                    printf("K");
+                }
+                break;
+
+
+                case 0x0C:
+                {
+                    printf("L");
+                }
+                break;
+
+
+                case 0x0D:
+                {
+                    printf("M");
+                }
+                break;
+
+
+                case 0x0E:
+                {
+                    printf("N");
+                }
+                break;
+
+
+                case 0x0F:
+                {
+                    printf("N");
+                }
+                break;
+
+                case (byte)0xFF:
+                {
+                    printf("+");
+                }
+                break;
+
+
+
             }
             
         }
